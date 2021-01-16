@@ -67,4 +67,4 @@ CREATE TYPE basic_auth.jwt_token AS (
 );
 
 -- add user
-INSERT INTO basic_auth.users (email, pass, role) VALUES ('ac.gerard@gmail.com', 'coucou', 'crm_user');
+INSERT INTO basic_auth.users (email, pass, role) VALUES ('ac.gerard@toto.com', 'coucou', 'crm_user');

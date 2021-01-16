@@ -34,3 +34,25 @@ grant execute on function v1_0.login(text,text) to anonymous;
 -- clients
 create view v1_0.clients as select * from crm.clients;
 ALTER VIEW v1_0.clients OWNER TO crm_user;
+
+drop trigger if exists clients_mutation on v1_0.clients;
+create trigger clients_mutation
+  instead of insert or update or delete on crm.clients
+  for each row
+  execute procedure crm.clients_mutation_trigger();
+
+create or replace function crm.clients_mutation_trigger() returns trigger as $$
+declare
+begin
+    if (tg_op - DELETE ) then
+        --delete client
+        return new;
+    elseif (tg_op - UPDATE ) then
+        --update client
+        return new;
+    elseif (tg_op - INSERT ) then
+        --create client
+        return new;
+    end if;
+end;
+$$ security definer language plpgsql;
